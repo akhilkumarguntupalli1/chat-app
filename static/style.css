@@ -1,0 +1,125 @@
+/* 🌸 Base styles */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    color: #fff;
+    padding: 20px;
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* 🌸 Chat area */
+#chat {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    padding: 10px;
+    height: 300px;
+    overflow-y: scroll;
+    margin-bottom: 10px;
+}
+
+/* 🌸 Messages */
+.message {
+    margin: 5px 0;
+    padding: 8px 12px;
+    border-radius: 15px;
+    display: block;
+    max-width: 80%;
+    word-wrap: break-word;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+.sender {
+    font-weight: bold;
+}
+
+/* 🌸 User colors */
+.user-color-0 { background: rgba(255, 99, 71, 0.8); }
+.user-color-1 { background: rgba(60, 179, 113, 0.8); }
+.user-color-2 { background: rgba(30, 144, 255, 0.8); }
+.user-color-3 { background: rgba(255, 215, 0, 0.8); }
+.user-color-4 { background: rgba(186, 85, 211, 0.8); }
+
+/* 🌸 Input + buttons */
+input[type="text"] {
+    width: 300px;
+    padding: 8px;
+    margin: 5px 0;
+}
+
+button {
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+/* 🌸 Typing indicator */
+#typing {
+    font-style: italic;
+    color: #ddd;
+    margin-top: 5px;
+}
+
+/* 🌸 Online user list */
+#user-list {
+    list-style: none;
+    padding: 0;
+}
+
+#user-list li {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
+}
+
+/* 🌸 Avatar thumbnails (optional) */
+#avatars label {
+    margin: 5px;
+    display: inline-block;
+    text-align: center;
+}
+
+#user-list img {
+    border-radius: 50%;
+}
+
+/* 🌸 Headings */
+h2 {
+    text-align: center;
+}
+
+/* 🌸 Responsive for small screens */
+@media (max-width: 600px) {
+    #chat {
+        height: 200px;
+        font-size: 14px;
+    }
+
+    input[type="text"] {
+        width: 100%;
+        max-width: none;
+    }
+
+    button {
+        width: 100%;
+    }
+
+    #user-list li {
+        font-size: 12px;
+    }
+}

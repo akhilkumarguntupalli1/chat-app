@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Chat Rooms</title>
+</head>
+<body>
+<h2>🌍 Available Rooms</h2>
+<ul>
+  {% for r in rooms %}
+    <li><a href="/join?room={{r}}&name=Guest&lang=en">{{r}}</a></li>
+  {% endfor %}
+</ul>
+
+<h3>Create or Join Room</h3>
+<form action="/join">
+  <input name="room" placeholder="Room code" required>
+  <input name="name" placeholder="Your name" required>
+  <select name="lang">
+    <option value="en">English</option>
+    <option value="hi">Hindi</option>
+    <option value="es">Spanish</option>
+    <option value="fr">French</option>
+  </select>
+  <button>Join</button>
+</form>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Join Chat</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<h2>Join a Chat Room</h2>
+
+<form onsubmit="joinRoom(); return false;">
+    <input type="text" id="name" placeholder="Your name" required>
+    <input type="text" id="room" placeholder="Room name" required>
+
+    <h3>Select your avatar:</h3>
+    <div id="avatars">
+        {% for avatar in avatars %}
+            <label>
+                <input type="radio" name="avatar" value="{{ avatar }}" {% if loop.first %}checked{% endif %}>
+                <img src="{{ url_for('static', filename='avatars/' + avatar) }}" width="50">
+            </label>
+        {% endfor %}
+    </div>
+
+    <button type="submit">Join</button>
+</form>
+
+<h3>Or join an existing room:</h3>
+<ul>
+    {% for room in rooms %}
+        <li><a href="{{ url_for('chat', room=room, name='Guest') }}">Room: {{ room }}</a></li>
+    {% endfor %}
+</ul>
+
+<script>
+function joinRoom() {
+    const name = document.getElementById('name').value.trim();
+    const room = document.getElementById('room').value.trim();
+    const avatar = document.querySelector('input[name="avatar"]:checked').value;
+
+    if (name && room) {
+        window.location.href = `/chat/${room}/${name}?avatar=${avatar}`;
+    }
+}
+</script>
+
+</body>
+</html>

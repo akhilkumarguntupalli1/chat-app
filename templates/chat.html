@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Room: {{ room }}</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<h2>
+    Room: {{ room }} | Welcome, {{ name }}
+    <a href="{{ url_for('clear_history', room=room) }}" style="float:right; color:red;">Clear History</a>
+</h2>
+
+<div>
+    <strong>Online users:</strong>
+    <ul id="user-list"></ul>
+</div>
+
+<div id="chat">
+    {% for msg in history %}
+        <div class="message">
+            <strong>{{ msg['sender'] }}</strong>: {{ msg['message'] }}
+        </div>
+    {% endfor %}
+</div>
+
+<div id="typing"></div>
+
+<p>
+    <input type="text" id="message" placeholder="Your message">
+    <button id="send-button">Send</button>
+</p>
+
+<script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+var socket = io();
+var name = "{{ name }}";
+var room = "{{ room }}";
+var avatar = "{{ avatar }}";
+
+socket.emit('join_room', { room: room, name: name, avatar: avatar });
+
+window.addEventListener('beforeunload', () => {
+    socket.emit('leave_room', { room: room, name: name });
+});
+
+$('#send-button').on('click', function() {
+    var message = $('#message').val().trim();
+    if (message) {
+        socket.emit('send_message', {
+            sender: name,
+            message: message,
+            room: room
+        });
+        $('#message').val('');
+        $('#typing').text('');
+    }
+});
+
+$('#message').on('input', function() {
+    socket.emit('typing', { sender: name, room: room });
+});
+
+socket.on('receive_message', function(data) {
+    $('#chat').append(
+        '<div class="message"><strong>' + data.sender + '</strong>: ' + data.message + '</div>'
+    );
+    $('#typing').text('');
+    var chatDiv = document.getElementById("chat");
+    chatDiv.scrollTop = chatDiv.scrollHeight;
+});
+
+socket.on('show_typing', function(who) {
+    $('#typing').text(who);
+});
+
+socket.on('user_list', function(users) {
+    $('#user-list').html('');
+    users.forEach(u => {
+        $('#user-list').append(
+            `<li><img src="/static/avatars/${u.avatar}" width="30"> ${u.name}</li>`
+        );
+    });
+});
+
+// handle clear history via socket (optional)
+socket.on('history_cleared', () => {
+    $('#chat').html('');
+});
+</script>
+
+</body>
+</html>
