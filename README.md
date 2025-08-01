@@ -33,7 +33,7 @@ Users can join rooms, chat in real time, and see active participants with avatar
 
 ## 📂 Project Structure
 
-flask-chat-app/
+lask-chat-app/
 │-- app.py # Main Flask app
 │-- requirements.txt # Python dependencies
 │-- render.yaml # Render deployment config
@@ -44,6 +44,4 @@ flask-chat-app/
 │ └── avatars/ # Default avatars for users
 │-- README.md # Project documentation
 
-yaml
-Copy
-Edit
+
