@@ -6,7 +6,7 @@ Users can join rooms, chat in real time, and see active participants with avatar
 ---
 
 ## 🚀 Live Demo
-[🔗 Open the App](https://your-render-link.onrender.com)
+[🔗 Open the App](https://chat-app-1-je1y.onrender.com)
 
 ---
 
