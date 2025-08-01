@@ -7,4 +7,4 @@ services:
     startCommand: python app.py
     envVars:
       - key: MONGO_URI
-        sync: false
+        value: "mongodb+srv://chatuser:AkhilChat2025%21@cluster2.a5gequu.mongodb.net/chatdb?retryWrites=true&w=majority"
