@@ -10,7 +10,7 @@ import certifi
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
-socketio = SocketIO(app)
+socketio = SocketIO(app, async_mode='eventlet')
 
 # ✅ MongoDB Atlas connection from Render Environment
 MONGO_URI = os.environ.get("MONGO_URI")
@@ -20,7 +20,7 @@ try:
         MONGO_URI,
         tls=True,
         tlsCAFile=certifi.where(),
-        serverSelectionTimeoutMS=20000
+        serverSelectionTimeoutMS=20000  # 20 sec timeout
     )
     client.admin.command('ping')  # ✅ Test connection immediately
     print("✅ MongoDB Atlas connected successfully!")
@@ -112,4 +112,5 @@ def handle_clear_history(data):
     emit('history_cleared', room=room)
 
 if __name__ == '__main__':
+    # ✅ For Render, use 0.0.0.0 and dynamic PORT
     socketio.run(app, host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
